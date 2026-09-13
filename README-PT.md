@@ -200,7 +200,7 @@ Este projeto está licenciado sob a **Licença MIT** — veja [LICENSE](./LICENS
 
 <div align="center">
 
-**Feito com ❤️ para a comunidade Ágil brasileira e global**
+**Feito com ❤️❤️ para a comunidade Ágil brasileira e global**
 
 ⭐ Se o TASS ajudou você a treinar melhores Scrum Masters, por favor dê uma estrela!
 
