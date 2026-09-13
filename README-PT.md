@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./public/banner.svg" alt="TASS Kanban — Simulador Ágil com Agentes Autônomos de IA" width="100%"/>
+<img src="banner.png" alt="TASS Kanban — Simulador Ágil com Agentes Autônomos de IA" width="100%"/>
 
 <br/>
 

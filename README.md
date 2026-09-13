@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./public/banner.svg" alt="TASS Kanban — Autonomous AI Agile Simulator" width="100%"/>
+<img src="banner.png" alt="TASS Kanban — Autonomous AI Agile Simulator" width="100%"/>
 
 <br/>
 
