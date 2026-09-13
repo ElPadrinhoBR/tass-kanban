@@ -911,6 +911,47 @@ export const App: React.FC = () => {
     setAiStatus('Cenário Delivery App resetado!');
   };
 
+  // Reset Completo da Campanha
+  const handleResetCampaign = () => {
+    smManager.reset();
+    setSmXp(0);
+    setSmDecisionsCount(0);
+    setSmAchievements([]);
+    setCards(SCENARIO_DELIVERY_APP_CARDS);
+    localStorage.setItem(STORAGE_CARDS_KEY, JSON.stringify(SCENARIO_DELIVERY_APP_CARDS));
+    setAgents(INITIAL_AGENTS);
+    setIsRunning(false);
+    setTick(0);
+    setSprint(1);
+    setMorale(85);
+    setRisk('MEDIUM');
+    setVelocity(24);
+    setSimulatedHour('09:00');
+    memory.clearMemory();
+    setChatMessages(INITIAL_CHAT_MESSAGES);
+    localStorage.setItem('tass_chat_messages_v3', JSON.stringify(INITIAL_CHAT_MESSAGES));
+    setUsedDilemmaIds(['msg_init_dilemma_1']);
+    localStorage.setItem('tass_used_dilemmas_v2', JSON.stringify(['msg_init_dilemma_1']));
+    setSprintCompleteShown(false);
+    setSprintCompleteOpen(false);
+    setAiStatus(lang === 'en' ? 'Campaign completely reset!' : lang === 'es' ? '¡Campaña completamente reiniciada!' : 'Campanha completamente resetada do zero!');
+  };
+
+  const getColumnTitle = (colId: string) => {
+    switch (colId) {
+      case 'BACKLOG':
+        return t.columns.backlog;
+      case 'IN_PROGRESS':
+        return t.columns.inProgress;
+      case 'REVIEW_QA':
+        return t.columns.codeReview;
+      case 'DONE':
+        return t.columns.done;
+      default:
+        return colId;
+    }
+  };
+
   // Estatísticas de Conclusão
   const totalCards = cards.length;
   const doneCards = cards.filter((c) => c.status === 'DONE').length;
@@ -939,7 +980,7 @@ export const App: React.FC = () => {
             </div>
             <div className="flex flex-col text-left">
               <span className="leading-none">TASS KANBAN</span>
-              <span className="text-[9px] text-slate-500 group-hover:text-slate-400 font-normal">Apresentação &bull; Proposta</span>
+              <span className="text-[9px] text-slate-500 group-hover:text-slate-400 font-normal">{t.app.subtitle}</span>
             </div>
           </button>
 
@@ -992,7 +1033,7 @@ export const App: React.FC = () => {
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
-            <Zap size={14} /> Modo 1: Acelerado
+            <Zap size={14} /> {t.app.mode1}
           </button>
           <button
             onClick={() => {
@@ -1005,7 +1046,7 @@ export const App: React.FC = () => {
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
-            <Clock size={14} /> Modo 2: Tempo Real (Daily 18h)
+            <Clock size={14} /> {t.app.mode2}
           </button>
         </div>
 
@@ -1022,7 +1063,7 @@ export const App: React.FC = () => {
             title="Abrir/Recolher Chat da Equipe estilo Teams/Slack"
           >
             <MessageSquare size={14} />
-            <span>Chat Teams/Slack</span>
+            <span>{t.app.chatButton}</span>
             {pendingDilemmasCount > 0 && (
               <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse ml-0.5" />
             )}
@@ -1034,7 +1075,7 @@ export const App: React.FC = () => {
             className="px-2.5 py-1.5 bg-indigo-950/50 hover:bg-indigo-900/60 border border-indigo-700/50 text-indigo-300 rounded-lg text-xs font-bold flex items-center gap-1.5 transition shadow"
             title="Abrir Guia de Bolso do Scrum Master com lições do básico ao avançado"
           >
-            <BookOpen size={14} /> Guia Ágil
+            <BookOpen size={14} /> {t.app.handbookButton}
           </button>
 
           {/* Botão Conquistas */}
@@ -1043,14 +1084,14 @@ export const App: React.FC = () => {
             className="px-2.5 py-1.5 bg-amber-950/40 hover:bg-amber-900/50 border border-amber-700/50 text-amber-300 rounded-lg text-xs font-bold flex items-center gap-1.5 transition shadow"
             title="Ver Conquistas e Medalhas"
           >
-            <Award size={14} /> Conquistas
+            <Award size={14} /> {t.app.achievementsButton}
           </button>
 
           <div className="h-5 w-px bg-slate-800 mx-0.5" />
 
           {mode === 'MODE_1_TURBO' && (
             <div className="flex items-center bg-slate-950 px-2 py-1 rounded-lg border border-slate-800 text-xs gap-1">
-              <span className="text-[10px] text-slate-500 font-bold uppercase mr-1">Velocidade:</span>
+              <span className="text-[10px] text-slate-500 font-bold uppercase mr-1">{t.app.speed}:</span>
               {[1, 2, 5, 10].map((s) => (
                 <button
                   key={s}
@@ -1089,11 +1130,11 @@ export const App: React.FC = () => {
           >
             {isRunning ? (
               <>
-                <Pause size={14} /> Pausar
+                <Pause size={14} /> {t.app.pause}
               </>
             ) : (
               <>
-                <Play size={14} /> Iniciar IA
+                <Play size={14} /> {t.app.start}
               </>
             )}
           </button>
@@ -1102,7 +1143,7 @@ export const App: React.FC = () => {
             <button
               onClick={executeSimulationStep}
               className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition"
-              title="Avançar 1 Passo (Step)"
+              title={t.app.step}
             >
               <StepForward size={15} />
             </button>
@@ -1114,7 +1155,7 @@ export const App: React.FC = () => {
             className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition"
             title="Ver e Baixar Log da IA"
           >
-            <FileText size={14} className="text-emerald-400" /> Log
+            <FileText size={14} className="text-emerald-400" /> {t.navigation.auditLog}
           </button>
 
           {/* Seletor de Idioma (PT / EN / ES) */}
@@ -1135,7 +1176,7 @@ export const App: React.FC = () => {
           <button
             onClick={() => setSettingsModalOpen(true)}
             className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition"
-            title="Configurações & API Key"
+            title={t.navigation.settings}
           >
             <Sliders size={15} />
           </button>
@@ -1151,7 +1192,7 @@ export const App: React.FC = () => {
         {/* Membros da Equipe Ágil */}
         <div className="flex items-center gap-3">
           <span className="text-[11px] text-slate-400 font-bold uppercase tracking-wider flex items-center gap-1">
-            <Users size={12} /> Time:
+            <Users size={12} /> {t.app.team}
           </span>
           {agents.map((a) => (
             <div
@@ -1195,7 +1236,7 @@ export const App: React.FC = () => {
             title="Moral da Equipe: mede a segurança psicológica e motivação do time."
           >
             <Smile size={13} className="text-green-400" />
-            <span className="text-slate-400">Moral:</span>
+            <span className="text-slate-400">{t.app.morale}:</span>
             <span className="font-bold text-green-400">{morale}%</span>
           </div>
 
@@ -1204,13 +1245,13 @@ export const App: React.FC = () => {
             title="Nível de Risco: probabilidade de atrasos ou bugs graves em produção."
           >
             <AlertTriangle size={13} className={risk === 'HIGH' ? 'text-red-400' : 'text-yellow-400'} />
-            <span className="text-slate-400">Risco:</span>
+            <span className="text-slate-400">{t.app.risk}:</span>
             <span
               className={`font-bold ${
                 risk === 'HIGH' ? 'text-red-400' : risk === 'MEDIUM' ? 'text-yellow-400' : 'text-green-400'
               }`}
             >
-              {risk}
+              {t.risks[risk.toLowerCase() as 'low'|'medium'|'high'] || risk}
             </span>
           </div>
 
@@ -1218,7 +1259,7 @@ export const App: React.FC = () => {
             className="flex items-center gap-2 cursor-help"
             title="Progresso da Sprint: percentual de histórias concluídas (DONE)."
           >
-            <span className="text-[11px] text-slate-400">Conclusão:</span>
+            <span className="text-[11px] text-slate-400">{t.app.completion}:</span>
             <div className="w-20 h-2 bg-slate-800 rounded-full overflow-hidden">
               <div
                 className={`h-full transition-all duration-300 ${doneCards === totalCards && totalCards > 0 ? 'bg-emerald-500' : 'bg-blue-500'}`}
@@ -1240,7 +1281,7 @@ export const App: React.FC = () => {
             return (
               <KanbanColumnItem
                 key={col.id}
-                column={col}
+                column={{ ...col, title: getColumnTitle(col.id) }}
                 cards={colCards}
                 onDragStart={handleDragStart}
                 onDrop={handleDrop}
@@ -1333,6 +1374,7 @@ export const App: React.FC = () => {
         apiKey={brain.getApiKey()}
         onSaveApiKey={(key) => brain.setApiKey(key)}
         onResetScenario={handleResetScenario}
+        onResetCampaign={handleResetCampaign}
         currentTheme={currentTheme}
         onSelectTheme={(themeId) => setCurrentTheme(themeId)}
       />

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Key, RotateCcw, X, Check, Sliders, Palette, CheckCircle2 } from 'lucide-react';
+import { Key, RotateCcw, X, Check, Sliders, Palette, CheckCircle2, Globe, Flame } from 'lucide-react';
 import { ThemeId, THEMES } from '../data/themePresets';
+import { useLanguageStore } from '../i18n/useLanguage';
+import { LANGUAGE_OPTIONS } from '../i18n/index';
 
 interface Props {
   isOpen: boolean;
@@ -8,6 +10,7 @@ interface Props {
   apiKey: string;
   onSaveApiKey: (key: string) => void;
   onResetScenario: () => void;
+  onResetCampaign?: () => void;
   currentTheme: ThemeId;
   onSelectTheme: (themeId: ThemeId) => void;
 }
@@ -18,11 +21,13 @@ export const SettingsModal: React.FC<Props> = ({
   apiKey,
   onSaveApiKey,
   onResetScenario,
+  onResetCampaign,
   currentTheme,
   onSelectTheme,
 }) => {
   const [currentKey, setCurrentKey] = useState(apiKey);
   const [saved, setSaved] = useState(false);
+  const { lang, t, setLang } = useLanguageStore();
 
   if (!isOpen) return null;
 
@@ -45,8 +50,8 @@ export const SettingsModal: React.FC<Props> = ({
               <Sliders size={18} />
             </div>
             <div>
-              <h2 className="text-sm font-bold text-slate-100">Configurações &amp; Temas Visuais</h2>
-              <p className="text-[11px] text-slate-400">Personalize a identidade visual e parâmetros do simulador</p>
+              <h2 className="text-sm font-bold text-slate-100">{t.navigation.settings}</h2>
+              <p className="text-[11px] text-slate-400">Personalize a identidade visual, idioma e parâmetros do simulador</p>
             </div>
           </div>
           <button
@@ -59,27 +64,55 @@ export const SettingsModal: React.FC<Props> = ({
 
         {/* Conteúdo com Rolagem */}
         <div className="p-6 space-y-6 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-800">
-          {/* Seção 1: Seleção de Templates de Estilo / Cor */}
+          {/* Seção 0: Idioma da Interface */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <label className="text-xs font-bold text-slate-200 flex items-center gap-1.5 uppercase tracking-wider">
+                <Globe size={15} className="text-blue-400" />
+                {t.navigation.language} / Language
+              </label>
+              <span className="text-[10px] text-slate-500 font-mono">PT / EN / ES</span>
+            </div>
+            <div className="grid grid-cols-3 gap-2">
+              {LANGUAGE_OPTIONS.map((opt) => {
+                const isSelected = lang === opt.id;
+                return (
+                  <button
+                    key={opt.id}
+                    type="button"
+                    onClick={() => setLang(opt.id)}
+                    className={`py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center gap-1.5 ${
+                      isSelected
+                        ? 'bg-blue-600 border-blue-500 text-white shadow-md'
+                        : 'bg-slate-950/70 hover:bg-slate-800/80 border-slate-800 text-slate-300'
+                    }`}
+                  >
+                    <span>{opt.flag}</span>
+                    <span>{opt.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Seção 1: Seleção de Templates de Estilo / Cor */}
+          <div className="space-y-3 pt-4 border-t border-slate-800">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-bold text-slate-200 flex items-center gap-1.5 uppercase tracking-wider">
                 <Palette size={15} className="text-indigo-400" />
-                Templates de Estilo e Tema Visual
+                {t.navigation.theme}
               </label>
               <span className="text-[10px] text-slate-500 font-mono">5 Estilos</span>
             </div>
-            <p className="text-[11px] text-slate-400 leading-relaxed">
-              Alterne entre interfaces corporativas e limpas (estilo <strong>Trello clássico</strong>, <strong>Jira corporativo</strong>, <strong>Linear moderno</strong>, etc.) sem saturações exageradas:
-            </p>
 
             <div className="grid grid-cols-1 gap-2.5">
-              {themeList.map((t) => {
-                const isSelected = t.id === currentTheme;
+              {themeList.map((tm) => {
+                const isSelected = tm.id === currentTheme;
                 return (
                   <button
-                    key={t.id}
+                    key={tm.id}
                     type="button"
-                    onClick={() => onSelectTheme(t.id)}
+                    onClick={() => onSelectTheme(tm.id)}
                     className={`p-3 rounded-2xl border text-left transition flex items-center justify-between gap-3 ${
                       isSelected
                         ? 'bg-blue-950/40 border-blue-500 shadow-md ring-1 ring-blue-500/50'
@@ -89,7 +122,7 @@ export const SettingsModal: React.FC<Props> = ({
                     <div className="flex items-center gap-3">
                       {/* Amostras de cores */}
                       <div className="flex items-center -space-x-1.5 p-1 bg-slate-900 rounded-xl border border-slate-800">
-                        {t.previewColors.map((c, i) => (
+                        {tm.previewColors.map((c, i) => (
                           <div
                             key={i}
                             className="w-5 h-5 rounded-full border border-slate-900 shadow-sm"
@@ -100,7 +133,7 @@ export const SettingsModal: React.FC<Props> = ({
 
                       <div>
                         <div className="flex items-center gap-2">
-                          <h4 className="text-xs font-bold text-slate-100">{t.name}</h4>
+                          <h4 className="text-xs font-bold text-slate-100">{tm.name}</h4>
                           {isSelected && (
                             <span className="text-[9px] bg-blue-500/20 text-blue-400 border border-blue-500/30 px-1.5 py-0.2 rounded font-bold uppercase">
                               Ativo
@@ -108,7 +141,7 @@ export const SettingsModal: React.FC<Props> = ({
                           )}
                         </div>
                         <p className="text-[10.5px] text-slate-400 mt-0.5 leading-snug">
-                          {t.subtitle}
+                          {tm.subtitle}
                         </p>
                       </div>
                     </div>
@@ -126,11 +159,8 @@ export const SettingsModal: React.FC<Props> = ({
           <div className="pt-4 border-t border-slate-800">
             <form onSubmit={handleSave} className="space-y-3">
               <label className="text-xs font-bold text-slate-200 flex items-center gap-1.5 uppercase tracking-wider">
-                <Key size={14} className="text-amber-400" /> Chave de API Google Gemini (Opcional)
+                <Key size={14} className="text-amber-400" /> {t.modals.apiKeyLabel}
               </label>
-              <p className="text-[11px] text-slate-400 leading-relaxed">
-                A simulação já conta com um motor heurístico com IA autônoma embutida. Caso deseje conectar sua chave pessoal do Gemini:
-              </p>
               <input
                 type="password"
                 value={currentKey}
@@ -142,30 +172,56 @@ export const SettingsModal: React.FC<Props> = ({
                 type="submit"
                 className="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-md shadow-blue-600/20"
               >
-                {saved ? <><Check size={14} /> Chave Salva com Sucesso!</> : 'Salvar Chave de API'}
+                {saved ? <><Check size={14} /> Salvo!</> : t.modals.save}
               </button>
             </form>
           </div>
 
-          {/* Seção 3: Resetar Cenário Inicial */}
+          {/* Seção 3: Reiniciar Apenas Quadro */}
           <div className="pt-4 border-t border-slate-800 space-y-2">
             <label className="text-xs font-bold text-slate-200 flex items-center gap-1.5 uppercase tracking-wider">
-              <RotateCcw size={14} className="text-rose-400" /> Restaurar Cenário Inicial
+              <RotateCcw size={14} className="text-slate-400" /> {t.app.resetBoard}
             </label>
             <p className="text-[11px] text-slate-400 leading-relaxed">
-              Restaura as 6 colunas, limpa o log e recoloca os 8 cartões originais do projeto Delivery App.
+              {t.app.resetBoardDesc}
             </p>
             <button
               type="button"
               onClick={() => {
-                if (confirm('Deseja restaurar o quadro e as mensagens para o estado inicial?')) {
+                if (confirm(t.app.resetConfirm)) {
                   onResetScenario();
                   onClose();
                 }
               }}
-              className="w-full py-2.5 bg-slate-950 hover:bg-rose-950/40 hover:text-rose-400 border border-slate-800 hover:border-rose-700/50 text-slate-300 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-2"
+              className="w-full py-2 bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-slate-300 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-2"
             >
-              <RotateCcw size={14} /> Restaurar Quadro e Tarefas
+              <RotateCcw size={14} /> {t.app.resetBoard}
+            </button>
+          </div>
+
+          {/* Seção 4: Resetar Campanha Completa (Novo) */}
+          <div className="pt-4 border-t border-red-950/80 space-y-2 bg-red-950/20 p-4 rounded-2xl border border-red-900/40">
+            <label className="text-xs font-bold text-red-300 flex items-center gap-1.5 uppercase tracking-wider">
+              <Flame size={15} className="text-red-400" /> {t.app.resetCampaign}
+            </label>
+            <p className="text-[11px] text-red-200/80 leading-relaxed">
+              {t.app.resetCampaignDesc}
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                if (confirm(t.app.resetCampaignConfirm)) {
+                  if (onResetCampaign) {
+                    onResetCampaign();
+                  } else {
+                    onResetScenario();
+                  }
+                  onClose();
+                }
+              }}
+              className="w-full py-2.5 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-red-900/30"
+            >
+              <Flame size={14} /> {t.app.resetCampaign}
             </button>
           </div>
         </div>

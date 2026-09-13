@@ -4,9 +4,12 @@ export interface Translations {
   app: {
     title: string;
     subtitle: string;
+    mode1: string;
+    mode2: string;
     speed: string;
     start: string;
     pause: string;
+    step: string;
     reset: string;
     resetConfirm: string;
     exportLog: string;
@@ -14,6 +17,7 @@ export interface Translations {
     sprint: string;
     day: string;
     hour: string;
+    team: string;
     morale: string;
     risk: string;
     velocity: string;
@@ -23,6 +27,14 @@ export interface Translations {
     level: string;
     decisions: string;
     achievements: string;
+    chatButton: string;
+    handbookButton: string;
+    achievementsButton: string;
+    resetCampaign: string;
+    resetCampaignConfirm: string;
+    resetCampaignDesc: string;
+    resetBoard: string;
+    resetBoardDesc: string;
   };
   navigation: {
     settings: string;

@@ -3,6 +3,7 @@ import { KanbanColumn, KanbanCard, CardCategory } from '../types/kanban';
 import { KanbanCardItem } from './KanbanCardItem';
 import { Plus, X } from 'lucide-react';
 import { ThemeConfig } from '../data/themePresets';
+import { useLanguageStore } from '../i18n/useLanguage';
 
 interface Props {
   column: KanbanColumn;
@@ -23,6 +24,7 @@ export const KanbanColumnItem: React.FC<Props> = ({
   onDeleteCard,
   theme,
 }) => {
+  const { t } = useLanguageStore();
   const [isOver, setIsOver] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [newTitle, setNewTitle] = useState('');
@@ -182,7 +184,7 @@ export const KanbanColumnItem: React.FC<Props> = ({
             onClick={() => setIsAdding(true)}
             className="w-full py-1.5 px-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition"
           >
-            <Plus size={14} /> Adicionar cartão
+            <Plus size={14} /> {t.columns.addCard}
           </button>
         </div>
       )}

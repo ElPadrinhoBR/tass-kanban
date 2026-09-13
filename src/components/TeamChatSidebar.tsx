@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { parseWithGlossary } from '../utils/parseWithGlossary';
 import { ThemeConfig } from '../data/themePresets';
+import { useLanguageStore } from '../i18n/useLanguage';
 
 interface TeamChatSidebarProps {
   isOpen: boolean;
@@ -54,6 +55,7 @@ export const TeamChatSidebar: React.FC<TeamChatSidebarProps> = ({
 }) => {
   const [inputText, setInputText] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguageStore();
 
   // Auto scroll para a última mensagem ao receber novidades
   useEffect(() => {
@@ -77,13 +79,13 @@ export const TeamChatSidebar: React.FC<TeamChatSidebarProps> = ({
   const getChannelLabel = (channel: ChatChannel) => {
     switch (channel.id) {
       case 'geral':
-        return 'geral';
+        return t.chat.channelGeneral;
       case 'desenvolvimento':
-        return 'dev-team';
+        return t.chat.channelDev;
       case 'duvidas-scrum-master':
-        return 'dúvidas-sm';
+        return t.chat.channelSm;
       case 'alertas-bloqueios':
-        return 'alertas-bugs';
+        return t.chat.channelAlerts;
       default:
         return channel.name;
     }
@@ -126,14 +128,14 @@ export const TeamChatSidebar: React.FC<TeamChatSidebarProps> = ({
           <div>
             <div className="flex items-center gap-1.5">
               <span className="text-xs font-black uppercase tracking-wider">
-                Chat da Equipe
+                {t.chat.title}
               </span>
               <span className="text-[10px] bg-white/10 px-1.5 py-0.2 rounded font-mono">
                 Teams / Slack
               </span>
             </div>
             <p className={`text-[11px] ${isLightTheme ? 'text-white/80' : 'text-slate-400'}`}>
-              Comunicação &amp; Decisões em Tempo Real
+              {t.chat.subtitle}
             </p>
           </div>
         </div>
@@ -141,7 +143,7 @@ export const TeamChatSidebar: React.FC<TeamChatSidebarProps> = ({
         <button
           onClick={onClose}
           className="text-white/70 hover:text-white p-1 rounded-lg hover:bg-white/10 transition"
-          title="Recolher Chat"
+          title={t.navigation.closeChat}
         >
           <X size={18} />
         </button>
@@ -150,7 +152,7 @@ export const TeamChatSidebar: React.FC<TeamChatSidebarProps> = ({
       {/* ─── Topo dos Canais & Ações Rápidas do Scrum Master ───────────────── */}
       <div className={`${channelsBg} px-3 pt-2.5 pb-1 flex items-center justify-between transition-colors duration-200`}>
         <span className={`text-[10px] font-bold uppercase tracking-wider ${textSecondary}`}>
-          Canais da Equipe ({channels.length})
+          {t.chat.channelsTitle} ({channels.length})
         </span>
 
         <div className="flex items-center gap-1.5">
@@ -161,10 +163,10 @@ export const TeamChatSidebar: React.FC<TeamChatSidebarProps> = ({
                 ? 'bg-amber-100 hover:bg-amber-200 border border-amber-300 text-amber-900'
                 : 'bg-amber-950/50 hover:bg-amber-900/70 border border-amber-500/40 text-amber-300'
             }`}
-            title="Provocar um dilema ágil para você tomar decisões e ganhar XP"
+            title={t.chat.provokeDecision}
           >
             <Zap size={11} className={isLightTheme ? 'text-amber-700' : 'text-amber-400'} />
-            <span>Decisão (+XP)</span>
+            <span>{t.chat.provokeDecision}</span>
           </button>
           <button
             onClick={onTriggerCoffeeBreak}
@@ -173,7 +175,7 @@ export const TeamChatSidebar: React.FC<TeamChatSidebarProps> = ({
                 ? 'bg-white hover:bg-slate-200 border-slate-300 text-slate-700'
                 : 'bg-slate-800 hover:bg-slate-700 border-slate-700 text-slate-300'
             }`}
-            title="Pausa do Café Virtual (Aumenta Moral do Time)"
+            title={t.chat.coffeeBreak}
           >
             <Coffee size={12} />
           </button>
@@ -232,9 +234,9 @@ export const TeamChatSidebar: React.FC<TeamChatSidebarProps> = ({
         {channelMessages.length === 0 ? (
           <div className={`h-full flex flex-col items-center justify-center text-center p-6 ${textSecondary}`}>
             <Hash size={32} className="mb-2 opacity-50" />
-            <p className="text-xs font-semibold">Nenhuma mensagem neste canal ainda.</p>
+            <p className="text-xs font-semibold">{t.chat.emptyChannel}</p>
             <p className="text-[11px] mt-1 opacity-70">
-              Envie uma mensagem ou inicie a simulação para o time começar a interagir!
+              {t.chat.emptyChannelDesc}
             </p>
           </div>
         ) : (
@@ -294,7 +296,7 @@ export const TeamChatSidebar: React.FC<TeamChatSidebarProps> = ({
                       <span className={`text-[11px] font-bold uppercase tracking-wider ${
                         isLightTheme ? 'text-amber-800' : 'text-amber-300'
                       }`}>
-                        {msg.isResolved ? 'Decisão Tomada:' : 'Sua Decisão como Scrum Master:'}
+                        {msg.isResolved ? t.chat.decisionTaken : t.chat.decisionPending}
                       </span>
                     </div>
 
@@ -357,7 +359,7 @@ export const TeamChatSidebar: React.FC<TeamChatSidebarProps> = ({
 
                             {isChosen && (
                               <div className="flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 mt-1">
-                                <CheckCircle2 size={12} /> Decisão Aplicada ao Time!
+                                <CheckCircle2 size={12} /> {t.chat.decisionApplied}
                               </div>
                             )}
 
@@ -368,7 +370,7 @@ export const TeamChatSidebar: React.FC<TeamChatSidebarProps> = ({
                                   ? 'bg-blue-50/80 border-blue-200 text-blue-900'
                                   : 'bg-indigo-950/50 border-indigo-500/30 text-indigo-200'
                               }`}>
-                                <span className="font-bold block mb-0.5">📚 Por que essa decisão?</span>
+                                <span className="font-bold block mb-0.5">{t.chat.whyThisDecision}</span>
                                 {parseWithGlossary(opt.pedagogicalReason, opt.id + '_reason')}
                               </div>
                             )}
@@ -397,7 +399,7 @@ export const TeamChatSidebar: React.FC<TeamChatSidebarProps> = ({
             type="text"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            placeholder={`Conversar em #${getChannelLabel(currentChannel)} como Scrum Master...`}
+            placeholder={`#${getChannelLabel(currentChannel)} - ${t.chat.inputPlaceholder}`}
             className={`w-full rounded-lg px-3 py-2 text-xs focus:outline-none transition border ${inputBg} ${inputTextClass}`}
           />
         </div>
