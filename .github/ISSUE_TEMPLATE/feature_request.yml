@@ -1,0 +1,65 @@
+name: Feature Request
+description: Suggest a new feature or improvement for TASS Kanban
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping make TASS Kanban better! Please describe your idea as clearly as possible.
+
+  - type: input
+    id: summary
+    attributes:
+      label: Feature Summary
+      description: A one-line description of the feature.
+      placeholder: "e.g. Add a fifth agent: Scrum Coach for conflict mediation"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem It Solves
+      description: What user problem or gap does this feature address?
+      placeholder: "As a Scrum Master trainee, I need to practice conflict mediation scenarios that aren't currently simulated."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the feature in detail. How should it work?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Did you consider any other approaches? Why did you prefer the proposed solution?
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Feature Category
+      options:
+        - New Agent Behavior
+        - New Visual Theme
+        - New Language (i18n)
+        - Simulation Engine
+        - Career / XP System
+        - Chat / Dilemma System
+        - Kanban Board
+        - Documentation
+        - Performance
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Add any mockups, links, or references that might help.

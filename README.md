@@ -1,214 +1,222 @@
-# 🚀 TASS Kanban — Simulador Educativo de Agilidade e Engenharia de Software
+<div align="center">
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![React](https://img.shields.io/badge/React-19-61dafb.svg?logo=react)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178c6.svg?logo=typescript)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4-38bdf8.svg?logo=tailwindcss)
-![Vite](https://img.shields.io/badge/Vite-6.x-646cff.svg?logo=vite)
-![Status](https://img.shields.io/badge/build-passing-brightgreen.svg)
+<img src="./public/banner.svg" alt="TASS Kanban — Autonomous AI Agile Simulator" width="100%"/>
 
-> **TASS Kanban** é um ambiente de simulação gamificado, interativo e educacional para formação prática de **Scrum Masters**, agilistas e líderes técnicos. O jogador assume a liderança servidora de um time autônomo com Inteligência Artificial, tomando decisões em tempo real com impactos diretos no fluxo do quadro Kanban, na qualidade do código e na motivação da equipe.
+<br/>
 
----
+[![English](https://img.shields.io/badge/🇺🇸-English-blue?style=flat-square)](./README.md)
+[![Português](https://img.shields.io/badge/🇧🇷-Português-green?style=flat-square)](./README-PT.md)
+[![Español](https://img.shields.io/badge/🇪🇸-Español-red?style=flat-square)](./README-ES.md)
 
-## 📌 Sumário
-- [Sobre o Projeto](#-sobre-o-projeto)
-- [Principais Funcionalidades](#-principais-funcionalidades)
-- [Arquitetura e Tecnologias](#-arquitetura-e-tecnologias)
-- [Estrutura de Pastas](#-estrutura-de-pastas)
-- [Como Executar Localmente](#-como-executar-localmente)
-- [Deploy no GitHub Pages](#-deploy-no-github-pages)
-- [Regras de Jogo e Dinâmica Ágil](#-regras-de-jogo-e-dinâmica-ágil)
-- [Licença](#-licença)
+<br/>
 
----
+[![Live Demo](https://img.shields.io/badge/🎮_Live_Demo-Play_Now-emerald?style=for-the-badge)](https://elpadrinhobr.github.io/tass-kanban/)
+[![GitHub Stars](https://img.shields.io/github/stars/ElPadrinhoBR/tass-kanban?style=for-the-badge&logo=github&color=gold)](https://github.com/ElPadrinhoBR/tass-kanban/stargazers)
+[![MIT License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](./LICENSE)
 
-## 🎯 Sobre o Projeto
+<br/>
 
-Liderar um time de desenvolvimento ágil exige muito mais do que mover cartões: exige negociação de escopo com o Product Owner, resolução de gargalos de QA, moderação em revisões de código (Code Review), controle de Débito Técnico e preservação da segurança psicológica da equipe.
+[![React](https://img.shields.io/badge/React_19-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript_6-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Vite](https://img.shields.io/badge/Vite_8-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev)
+[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS_3-38B2AC?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![i18n](https://img.shields.io/badge/i18n-PT_EN_ES-orange?style=flat-square)](./src/i18n)
 
-O **TASS Kanban** foi concebido para transformar a teoria do **Scrum Guide** e do método **Kanban** em uma experiência prática e dinâmica.
-
-### A Equipe Autônoma com IA
-O simulador conta com 4 membros autônomos com personalidades e papéis definidos:
-- **Ana Oliveira (Product Owner)**: Gerencia o Backlog, defende o valor de negócio e prioriza entregas críticas como o pagamento via PIX.
-- **Carlos Silva (Full-Stack Developer)**: Puxa histórias, desenvolve funcionalidades e reporta impedimentos técnicos na API ou no banco de dados.
-- **Marcos Tech Lead (Tech Lead)**: Zela pela arquitetura, integridade do código e rigor nos testes durante o Code Review.
-- **Júlia Santos (QA Engineer)**: Valida critérios de aceite em Staging e impede que bugs críticos cheguem em produção.
+</div>
 
 ---
 
-## ✨ Principais Funcionalidades
+## ⚡ Overview
 
-### 1. 📋 Quadro Kanban Interativo em Tempo Real
-- 6 Colunas de fluxo: `Backlog`, `A Fazer (Sprint)`, `Em Desenvolvimento`, `Code Review`, `Homologação (QA)` e `Done`.
-- Movimentação automática de cartões pelos agentes virtuais orientados por IA e heurísticas determinísticas.
-- Suporte a arrastar e soltar (Drag and Drop) manual de cartões a qualquer momento.
+**TASS Kanban** is an **interactive flight simulator for Agile teams, Scrum Masters, and Tech Leaders** — powered by four autonomous AI agents that think, argue, block each other, and make real software engineering trade-offs in real time.
 
-### 2. 💬 Chat Corporativo da Equipe (Teams / Slack)
-- 4 Canais integrados: `#geral`, `#dev-team`, `#duvidas-scrum-master` e `#alertas-e-bugs`.
-- Mensagens contextualizadas em tempo real emitidas pelos agentes a cada mudança de estado no quadro.
-- **Pausa Crítica**: Quando surge uma dúvida de negócio ou impedimento, o time para e aguarda a decisão do Scrum Master no canal de dúvidas.
+> *Stop reading theory. Start making decisions.*
 
-### 3. ⚖️ Decisões com Impacto Direto no Quadro
-- Cada escolha do agilista reflete imediatamente no Kanban:
-  - Criação de cartões de **Spike** ou **Débito Técnico**;
-  - Fatiamento de histórias de usuário grandes;
-  - **Regressão de Cards**: Reprovação de PR no Code Review ou detecção de bugs em QA voltam os cartões para *Em Desenvolvimento* com tags de alerta;
-  - Trade-offs de escopo negociados diretamente com a PO.
+Instead of a passive tutorial, TASS puts you in command of a complete Sprint. Your squad has a mind of their own — they open PRs, debate architectural choices, file critical bugs, and create ethical dilemmas only you can resolve. Every decision you make awards XP and shapes your **Scrum Master career path**.
 
-### 4. 📚 Vocabulário Técnico Clicável com React Portal
-- Termos técnicos e siglas ágeis (**PR, DoD, DoR, WIP, Spike, JWT, Redis, Staging, Deploy, LGPD, etc.**) são sublinhados na interface.
-- Ao clicar em qualquer termo, um popover explicativo renderizado via **React Portal** surge na tela com definição didática e exemplos práticos, livre de cortes ou problemas de overflow.
-
-### 5. 🎨 5 Templates de Temas Corporativos Selecionáveis
-- Alterne instantaneamente entre paletas refinadas:
-  - **Atlassian Blue (Estilo Trello Clássico)**;
-  - **Jira Software Clean (Enterprise)**;
-  - **Linear Dark Minimalist**;
-  - **Nordic Slate & Ice**;
-  - **Midnight Pro (Original)**;
-- Todos os elementos (quadro, sub-barra, chat, modais de feedback e perfil) adaptam suas cores de forma coordenada.
-
-### 6. 🏆 Gamificação da Carreira de Scrum Master
-- Sistema progressivo de experiência (**XP**):
-  - *Nível 1: Aprendiz Ágil*;
-  - *Nível 2: Facilitador Júnior*;
-  - *Nível 3: Pleno Scrum Master*;
-  - *Nível 4: Senior Agile Coach*;
-  - *Nível 5: Principal Agilist*;
-  - *Nível 6: Enterprise Agile Leader*.
-- Medalhas e conquistas desbloqueáveis (ex: *Mestre do Limite de WIP*, *Zerador de Impedimentos*, *Guardião da Qualidade*).
-
-### 7. 🛡️ Motor com Log Persistente Anti-Alucinação
-- Cada ação executada na simulação é registrada com timestamp, tick, sprint e justificativa técnica.
-- Histórico completo consultável e exportável como relatório `.json` para auditoria de processos.
+**🎮 [Launch the Live Demo — No Installation Required](https://elpadrinhobr.github.io/tass-kanban/)**
 
 ---
 
-## 🛠️ Arquitetura e Tecnologias
+## 🤖 The Four Autonomous Agents
 
-- **Core**: [React 19](https://react.dev/) + [TypeScript 5](https://www.typescriptlang.org/)
-- **Bundler & Build Tool**: [Vite 6](https://vite.dev/)
-- **Estilização**: [Tailwind CSS 3.4](https://tailwindcss.com/) com paleta adaptativa e animações CSS
-- **Ícones**: [Lucide React](https://lucide.dev/)
-- **Armazenamento Local**: LocalStorage e IndexedDB (Dexie) para persistência de estado e configurações
-- **Motor de IA / Heurística**: Integração nativa com a API Google Gemini com fallback heurístico desacoplado
+Each agent runs an **independent behavioral engine** with personality, memory, and professional heuristics. They interact with each other and react to your decisions:
+
+| Agent | Role | Behaviors & Triggers |
+|:---:|:---|:---|
+| 👩‍💼 **Ana Oliveira** | Product Owner | Prioritizes backlog, negotiates scope, challenges velocity estimates |
+| 👨‍💻 **Carlos Silva** | Full-Stack Dev | Opens PRs, introduces tech debt, triggers architecture debates |
+| 👨‍🏫 **Marcos Souza** | Tech Lead | Enforces code quality, blocks merges, proposes technical spikes |
+| 🧪 **Júlia Lima** | QA Engineer | Files critical bugs, challenges acceptance criteria, blocks releases |
 
 ---
 
-## 📁 Estrutura de Pastas
+## 🏗️ Architecture & Simulation Engine
 
-```text
-tass-kanban/
-├── .github/
-│   └── workflows/
-│       └── deploy.yml          # Pipeline de deploy automático no GitHub Pages
-├── public/
-│   └── favicon.svg             # Ícone oficial da aplicação
-├── src/
-│   ├── components/             # Componentes React modulares
-│   │   ├── AgileHandbookModal.tsx     # Guia Ágil do Scrum Master
-│   │   ├── AuditLogModal.tsx          # Modal de auditoria e exportação de logs
-│   │   ├── DailyScrumModal.tsx        # Cerimônia de Daily Scrum
-│   │   ├── DecisionFeedbackModal.tsx  # Análise didática com base no Scrum Guide
-│   │   ├── GlossaryTerm.tsx           # Popover de vocabulário via React Portal
-│   │   ├── KanbanCardItem.tsx         # Renderizador do cartão com temas
-│   │   ├── KanbanColumnItem.tsx       # Renderizador das colunas do Kanban
-│   │   ├── ScrumMasterProfileModal.tsx# Perfil de carreira e medalhas
-│   │   ├── SettingsModal.tsx          # Configurações de API e seletor de temas
-│   │   ├── SprintCompleteModal.tsx    # Celebração de Sprint com métricas e confetes
-│   │   ├── TeamChatSidebar.tsx        # Chat estilo Teams / Slack tematizado
-│   │   └── WelcomeIntroModal.tsx      # Tela de abertura e apresentação do jogo
-│   ├── data/                   # Presets e bases de conhecimento
-│   │   ├── glossary.ts         # Dicionário de termos técnicos e ágeis
-│   │   ├── initialData.ts      # Colunas, agentes e cartões iniciais
-│   │   ├── teamChatPresets.ts  # Dilemas pedagógicos e mensagens da equipe
-│   │   └── themePresets.ts     # Paletas e configurações dos 5 temas visuais
-│   ├── gamification/           # Lógica de progressão e conquistas
-│   │   └── ScrumMasterProgression.ts
-│   ├── simulation/             # Motor de simulação da equipe
-│   │   ├── GeminiBrain.ts      # Raciocínio de tomada de decisão da IA
-│   │   ├── SimulationMemory.ts # Log cronológico auditável anti-alucinação
-│   │   └── realtimeClock.ts    # Temporizador do Modo 2 (tempo real)
-│   ├── types/                  # Tipagem estrita TypeScript
-│   │   ├── chat.ts             # Tipos de mensagens, canais e dilemas
-│   │   └── kanban.ts           # Tipos de cartões, colunas e relatórios
-│   ├── utils/
-│   │   └── parseWithGlossary.tsx # Parser de termos técnicos com fronteiras estritas
-│   ├── App.tsx                 # Orquestrador central de estado da aplicação
-│   ├── index.css               # Diretivas do Tailwind CSS e animações
-│   └── main.tsx                # Ponto de entrada da aplicação React
-├── package.json
-├── tsconfig.json
-├── vite.config.ts              # Configuração Vite com base URL para GitHub Pages
-└── LICENSE                     # Licença MIT
+```mermaid
+graph TD
+    subgraph Agents["🤖 Autonomous Agent Squad"]
+        PO["👩‍💼 Ana — Product Owner"]
+        DEV["👨‍💻 Carlos — Full-Stack Dev"]
+        TL["👨‍🏫 Marcos — Tech Lead"]
+        QA["🧪 Júlia — QA Engineer"]
+    end
+
+    subgraph Engine["⚙️ Simulation Engine (GeminiBrain)"]
+        TICK["Tick Loop (1x / 2x / 5x / 10x)"]
+        DILEMMA["Heuristic Dilemma Generator"]
+        MEMORY["Auditable Decision Log (SimulationMemory)"]
+        EFFECTS["BoardEffect Processor"]
+    end
+
+    subgraph Player["🎯 You — Scrum Master"]
+        BOARD["Kanban Board (WIP Limits)"]
+        CHAT["Corporate Chat (Teams / Slack)"]
+        CAREER["Career Tree & XP System"]
+    end
+
+    PO -->|"Creates & refines stories"| BOARD
+    DEV -->|"Pulls cards, opens PRs"| BOARD
+    DEV <-->|"Triggers tech debates"| TL
+    QA -->|"Files bugs, blocks releases"| DEV
+    DILEMMA -->|"Fires decision alert in Chat"| CHAT
+    CHAT -->|"Your choice resolved"| CAREER
+    CAREER -->|"Impacts morale & velocity"| TICK
+    EFFECTS -->|"Moves / creates / splits cards"| BOARD
+    MEMORY -->|"Stores all events chronologically"| MEMORY
 ```
 
 ---
 
-## 💻 Como Executar Localmente
+## ✨ Features
 
-### Pré-requisitos
-- [Node.js](https://nodejs.org/) versão 18 ou superior
-- Gerenciador de pacotes `npm` (ou `pnpm` / `yarn`)
+| Category | Capability |
+|:---|:---|
+| 🎮 **Gameplay** | Sprint simulation with configurable speed (1x, 2x, 5x, 10x) |
+| 🤖 **Autonomous AI** | 4 agents with independent personalities and behavioral logic |
+| 💬 **Corporate Chat** | Slack / Teams-style interface with 4 dedicated channels |
+| ⚡ **Dilemma Engine** | Real-time Scrum Master decision challenges with XP rewards |
+| 🏆 **Career Progression** | 10-level gamified career ladder from Apprentice to Agile Coach |
+| 🎨 **Visual Themes** | 5 professional UI themes (Trello Blue, Jira, Linear, Nordic, Midnight Pro) |
+| 🌐 **Multilingual** | Full support for Portuguese 🇧🇷, English 🇺🇸, and Spanish 🇪🇸 |
+| 📋 **Kanban Board** | Drag-and-drop with WIP limits, story points, and categories |
+| 📊 **Agile Metrics** | Real-time velocity, morale, and sprint risk monitoring |
+| 🔍 **Agile Glossary** | 60+ terms with context-sensitive interactive tooltips |
+| 📝 **Audit Log** | Downloadable decision history for retrospectives |
+| 🌙 **Daily Scrum Mode** | Real-time clock simulation with 18h Daily Scrum events |
 
-### Passo a passo
-1. Clone o repositório:
+---
+
+## 🎮 Game Dynamics
+
+| Situation | What Happens |
+|:---|:---|
+| Carlos opens a PR with tech debt | Marcos blocks the merge; you decide whether to accept it or demand a refactor |
+| Backlog overflows (WIP limit breach) | Ana demands priority cuts; your choice impacts velocity |
+| Júlia files a severity-1 bug | Sprint is at risk; you choose between hotfix now or defer to next sprint |
+| Team morale drops below 60% | Coffee break or retrospective: your leadership decision restores team health |
+| Architecture conflict (Redis vs. Postgres) | 3-hour standstill; you mediate with a Spike Timebox or a command |
+
+Each decision is categorized as:
+- 🟦 **Servant Leadership** — collaborative, high XP reward
+- 🟨 **Pragmatic Trade-off** — balanced, medium XP
+- 🟥 **Anti-Pattern** — authoritarian or avoidant, penalty XP
+
+---
+
+## 🚀 Quickstart
+
+### Requirements
+- Node.js ≥ 18
+- npm ≥ 9
+
+### Run Locally
 ```bash
+# 1. Clone
 git clone https://github.com/ElPadrinhoBR/tass-kanban.git
 cd tass-kanban
-```
 
-2. Instale as dependências:
-```bash
+# 2. Install dependencies
 npm install
-```
 
-3. Inicie o servidor de desenvolvimento:
-```bash
+# 3. Start development server
 npm run dev
 ```
 
-4. Acesse no navegador:
-```text
-http://localhost:5173
+App will open at **http://localhost:5173**
+
+### Build for Production
+```bash
+npm run build
+npm run preview
+```
+
+### Deploy to GitHub Pages
+```bash
+npm run deploy
 ```
 
 ---
 
-## 🌐 Deploy no GitHub Pages
+## 🛣️ Roadmap
 
-O projeto já inclui o workflow de CI/CD automatizado em `.github/workflows/deploy.yml`.
+- [ ] 🤖 Dynamic AI responses via Gemini API (bring your own API key)
+- [ ] 📱 Mobile-responsive layout
+- [ ] 🌍 More languages (French, German, Japanese)
+- [ ] 🔌 Real Jira / Trello board import
+- [ ] 👥 Multiplayer (team vs. team sprint simulation)
+- [ ] 📊 Sprint retrospective report export (PDF)
 
-### Como publicar:
-1. No seu repositório no GitHub, acesse **Settings** > **Pages**.
-2. Na seção **Build and deployment**, selecione **Source: GitHub Actions**.
-3. A cada push na branch `main`, o GitHub Actions publica automaticamente na URL:
-```text
-https://elpadrinhobr.github.io/tass-kanban/
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](./CONTRIBUTING.md) first.
+
+```bash
+# Fork → clone → create a feature branch
+git checkout -b feat/my-feature
+# Commit following Conventional Commits
+git commit -m "feat: add my feature"
+# Open a Pull Request
+```
+
+See [Good First Issues →](https://github.com/ElPadrinhoBR/tass-kanban/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
+
+---
+
+## 📁 Project Structure
+
+```
+tass-kanban/
+├── src/
+│   ├── components/          # UI components (Kanban, Chat, Modals)
+│   ├── data/                # Initial scenario data, themes, chat presets
+│   ├── gamification/        # XP system, career levels, achievements
+│   ├── i18n/                # Multilingual dictionaries (PT / EN / ES)
+│   ├── simulation/          # GeminiBrain engine, SimulationMemory, clock
+│   ├── types/               # TypeScript interfaces (Kanban, Chat, Agents)
+│   └── utils/               # Glossary parser, helpers
+├── public/                  # Static assets (banner, icons)
+├── ARCHITECTURE.md          # Technical deep-dive
+├── CONTRIBUTING.md          # Contribution guide
+└── LICENSE                  # MIT License
 ```
 
 ---
 
-## 📖 Regras de Jogo e Dinâmica Ágil
+## 📄 License
 
-| Evento | O que acontece no jogo | Ação esperada do Scrum Master |
-|---|---|---|
-| **Dúvida no Chat** | O time para imediatamente e o status fica `Blocked` | Acessar o chat `#duvidas-scrum-master` e escolher uma abordagem |
-| **Bug em QA** | A QA Júlia encontra vulnerabilidade crítica | Optar por regredir o card para *Em Dev* ou orientar a equipe |
-| **PR Reprovado** | Tech Lead Marcos rejeita PR sem testes | Promover *Mob Programming* ou rejeitar com feedback construtivo |
-| **Pressão por Prazo** | PO solicita inserção de escopo urgente | Negociar trade-off ou proteger a meta da Sprint atual |
-| **Sprint Concluída** | Todos os cartões chegam em *Done* | Analisar métricas no modal de celebração e disparar uma Nova Sprint |
+This project is licensed under the **MIT License** — see [LICENSE](./LICENSE) for details.
 
 ---
 
-## 📄 Licença
+<div align="center">
 
-Distribuído sob a licença **MIT**. Consulte o arquivo [`LICENSE`](./LICENSE) para obter mais informações.
+**Made with ❤️ for the Agile community**
 
----
+⭐ If TASS helps you train better Scrum Masters, please star this repository!
 
-<p align="center">
-  Desenvolvido com foco em excelência em Engenharia de Software e Práticas Ágeis 🚀
-</p>
+[![GitHub Stars](https://img.shields.io/github/stars/ElPadrinhoBR/tass-kanban?style=social)](https://github.com/ElPadrinhoBR/tass-kanban/stargazers)
+
+</div>
