@@ -32,3 +32,13 @@ body,
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
   background: #475569;
 }
+
+/* Ocultar barra de rolagem mantendo funcionalidade */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+

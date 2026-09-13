@@ -74,16 +74,32 @@ export const TeamChatSidebar: React.FC<TeamChatSidebarProps> = ({
     setInputText('');
   };
 
-  const getChannelIcon = (name: string) => {
+  const getChannelLabel = (channel: ChatChannel) => {
+    switch (channel.id) {
+      case 'geral':
+        return 'geral';
+      case 'desenvolvimento':
+        return 'dev-team';
+      case 'duvidas-scrum-master':
+        return 'dúvidas-sm';
+      case 'alertas-bloqueios':
+        return 'alertas-bugs';
+      default:
+        return channel.name;
+    }
+  };
+
+  const getChannelIcon = (name: string, isActive: boolean) => {
+    const activeColor = 'text-white flex-shrink-0';
     switch (name) {
       case 'code':
-        return <Code2 size={14} className={isLightTheme ? 'text-blue-600' : 'text-blue-400'} />;
+        return <Code2 size={13} className={isActive ? activeColor : isLightTheme ? 'text-blue-600 flex-shrink-0' : 'text-blue-400 flex-shrink-0'} />;
       case 'help':
-        return <HelpCircle size={14} className={isLightTheme ? 'text-amber-600' : 'text-amber-400'} />;
+        return <HelpCircle size={13} className={isActive ? activeColor : isLightTheme ? 'text-amber-600 flex-shrink-0' : 'text-amber-400 flex-shrink-0'} />;
       case 'alert':
-        return <AlertOctagon size={14} className="text-rose-500" />;
+        return <AlertOctagon size={13} className={isActive ? activeColor : 'text-rose-500 flex-shrink-0'} />;
       default:
-        return <Hash size={14} className={isLightTheme ? 'text-slate-500' : 'text-slate-400'} />;
+        return <Hash size={13} className={isActive ? activeColor : isLightTheme ? 'text-slate-500 flex-shrink-0' : 'text-slate-400 flex-shrink-0'} />;
     }
   };
 
@@ -100,7 +116,7 @@ export const TeamChatSidebar: React.FC<TeamChatSidebarProps> = ({
   const textSecondary = theme ? theme.chatTextSecondary : 'text-slate-400';
 
   return (
-    <aside className={`w-96 flex-shrink-0 ${asideBg} flex flex-col h-full z-20 shadow-2xl transition-colors duration-200`}>
+    <aside className={`w-96 flex-shrink-0 ${asideBg} flex flex-col h-full z-20 shadow-2xl transition-colors duration-200 overflow-hidden`}>
       {/* ─── Header estilo Teams / Slack ────────────────────────────────────── */}
       <div className={`${headerBg} px-4 py-3 flex items-center justify-between transition-colors duration-200`}>
         <div className="flex items-center gap-2.5">
@@ -131,48 +147,24 @@ export const TeamChatSidebar: React.FC<TeamChatSidebarProps> = ({
         </button>
       </div>
 
-      {/* ─── Canais de Comunicação ──────────────────────────────────────────── */}
-      <div className={`${channelsBg} px-2 py-2 flex items-center gap-1 overflow-x-auto scrollbar-none transition-colors duration-200`}>
-        {channels.map((channel) => {
-          const isActive = channel.id === activeChannelId;
-          return (
-            <button
-              key={channel.id}
-              onClick={() => onSelectChannel(channel.id)}
-              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition relative ${
-                isActive ? channelActive : channelInactive
-              }`}
-            >
-              {getChannelIcon(channel.iconName)}
-              <span>#{channel.name}</span>
-              {channel.unreadCount > 0 && !isActive && (
-                <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse ml-0.5" />
-              )}
-            </button>
-          );
-        })}
-      </div>
+      {/* ─── Topo dos Canais & Ações Rápidas do Scrum Master ───────────────── */}
+      <div className={`${channelsBg} px-3 pt-2.5 pb-1 flex items-center justify-between transition-colors duration-200`}>
+        <span className={`text-[10px] font-bold uppercase tracking-wider ${textSecondary}`}>
+          Canais da Equipe ({channels.length})
+        </span>
 
-      {/* ─── Descrição do Canal Ativo & Ações Rápidas do Scrum Master ───────── */}
-      <div className={`px-3 py-2 flex items-center justify-between text-[11px] border-b ${
-        isLightTheme ? 'bg-slate-100 border-slate-200 text-slate-600' : 'bg-slate-900/90 border-slate-800 text-slate-400'
-      }`}>
-        <div className="flex items-center gap-1.5 truncate mr-2">
-          <Info size={12} className="flex-shrink-0 opacity-70" />
-          <span className="truncate">{currentChannel.description}</span>
-        </div>
-
-        <div className="flex items-center gap-1.5 flex-shrink-0">
+        <div className="flex items-center gap-1.5">
           <button
             onClick={onTriggerNewDilemma}
-            className={`px-2 py-1 rounded text-[10px] font-bold flex items-center gap-1 transition shadow-sm ${
+            className={`px-2 py-0.5 rounded text-[10px] font-bold flex items-center gap-1 transition shadow-sm ${
               isLightTheme
                 ? 'bg-amber-100 hover:bg-amber-200 border border-amber-300 text-amber-900'
-                : 'bg-amber-950/40 hover:bg-amber-900/60 border border-amber-600/50 text-amber-300'
+                : 'bg-amber-950/50 hover:bg-amber-900/70 border border-amber-500/40 text-amber-300'
             }`}
             title="Provocar um dilema ágil para você tomar decisões e ganhar XP"
           >
-            <Zap size={11} className={isLightTheme ? 'text-amber-700' : 'text-amber-400'} /> Provocar Decisão
+            <Zap size={11} className={isLightTheme ? 'text-amber-700' : 'text-amber-400'} />
+            <span>Decisão (+XP)</span>
           </button>
           <button
             onClick={onTriggerCoffeeBreak}
@@ -181,11 +173,58 @@ export const TeamChatSidebar: React.FC<TeamChatSidebarProps> = ({
                 ? 'bg-white hover:bg-slate-200 border-slate-300 text-slate-700'
                 : 'bg-slate-800 hover:bg-slate-700 border-slate-700 text-slate-300'
             }`}
-            title="Pausa do Café Virtual"
+            title="Pausa do Café Virtual (Aumenta Moral do Time)"
           >
             <Coffee size={12} />
           </button>
         </div>
+      </div>
+
+      {/* ─── Canais de Comunicação (Grid 2x2 Sem Barra de Rolagem) ──────────── */}
+      <div className={`${channelsBg} px-2.5 pb-2.5 grid grid-cols-2 gap-1.5 transition-colors duration-200 overflow-hidden`}>
+        {channels.map((channel) => {
+          const isActive = channel.id === activeChannelId;
+          const displayName = getChannelLabel(channel);
+          return (
+            <button
+              key={channel.id}
+              onClick={() => onSelectChannel(channel.id)}
+              title={channel.description}
+              className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all relative ${
+                isActive
+                  ? `${channelActive} ring-1 ring-white/20 shadow-sm`
+                  : `${channelInactive} border border-transparent`
+              }`}
+            >
+              <div className="flex items-center gap-1.5 min-w-0">
+                {getChannelIcon(channel.iconName, isActive)}
+                <span className="truncate">#{displayName}</span>
+              </div>
+
+              {channel.unreadCount > 0 && (
+                <span
+                  className={`ml-1 flex-shrink-0 px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
+                    isActive
+                      ? 'bg-white/20 text-white'
+                      : 'bg-rose-500 text-white animate-pulse shadow-sm'
+                  }`}
+                >
+                  {channel.unreadCount}
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* ─── Descrição do Canal Ativo ───────────────────────────────────────── */}
+      <div className={`px-3 py-1.5 flex items-center gap-1.5 text-[11px] border-b transition-colors duration-200 ${
+        isLightTheme ? 'bg-slate-100 border-slate-200 text-slate-600' : 'bg-slate-900/90 border-slate-800 text-slate-400'
+      }`}>
+        <Info size={12} className="flex-shrink-0 opacity-70" />
+        <span className="truncate font-medium" title={currentChannel.description}>
+          {currentChannel.description}
+        </span>
       </div>
 
       {/* ─── Feed de Mensagens ──────────────────────────────────────────────── */}
@@ -358,7 +397,7 @@ export const TeamChatSidebar: React.FC<TeamChatSidebarProps> = ({
             type="text"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            placeholder={`Conversar em #${currentChannel.name} como Scrum Master...`}
+            placeholder={`Conversar em #${getChannelLabel(currentChannel)} como Scrum Master...`}
             className={`w-full rounded-lg px-3 py-2 text-xs focus:outline-none transition border ${inputBg} ${inputTextClass}`}
           />
         </div>
