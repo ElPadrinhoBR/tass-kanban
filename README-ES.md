@@ -178,6 +178,15 @@ Este proyecto está licenciado bajo la **Licencia MIT** — ver [LICENSE](./LICE
 
 ---
 
+## 👤 Autor
+
+Desarrollado con pasión por **Roberto (El Padrinho)** — Estudiante de Gestión de Tecnologías de la Información (TI), entusiasta de metodologías ágiles (Scrum / Kanban) y futuro líder técnico.
+
+- GitHub: [@ElPadrinhoBR](https://github.com/ElPadrinhoBR)
+- Proyecto: [TASS Kanban](https://github.com/ElPadrinhoBR/tass-kanban)
+
+---
+
 <div align="center">
 
 **Hecho con ❤️ para la comunidad Ágil global**

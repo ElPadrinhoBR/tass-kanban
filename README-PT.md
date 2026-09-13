@@ -198,9 +198,18 @@ Este projeto está licenciado sob a **Licença MIT** — veja [LICENSE](./LICENS
 
 ---
 
+## 👤 Autor
+
+Desenvolvido com dedicação por **Roberto (El Padrinho)** — Estudante de Gestão de Tecnologia da Informação (TI), entusiasta de metodologias ágeis (Scrum / Kanban) e futuro líder técnico.
+
+- GitHub: [@ElPadrinhoBR](https://github.com/ElPadrinhoBR)
+- Projeto: [TASS Kanban](https://github.com/ElPadrinhoBR/tass-kanban)
+
+---
+
 <div align="center">
 
-**Feito com ❤️❤️ para a comunidade Ágil brasileira e global**
+**Feito com ❤️ para a comunidade Ágil brasileira e global**
 
 ⭐ Se o TASS ajudou você a treinar melhores Scrum Masters, por favor dê uma estrela!
 

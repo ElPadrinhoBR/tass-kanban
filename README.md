@@ -211,6 +211,15 @@ This project is licensed under the **MIT License** — see [LICENSE](./LICENSE) 
 
 ---
 
+## 👤 Author
+
+Developed with passion by **Roberto (El Padrinho)** — IT Management Student (*Estudante de Gestão de TI*), Agile enthusiast, and aspiring Tech Leader.
+
+- GitHub: [@ElPadrinhoBR](https://github.com/ElPadrinhoBR)
+- Project: [TASS Kanban](https://github.com/ElPadrinhoBR/tass-kanban)
+
+---
+
 <div align="center">
 
 **Made with ❤️ for the Agile community**
